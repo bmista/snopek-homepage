@@ -121,11 +121,21 @@ git push
 
 ---
 
-## Opcjonalnie: własna domena
+## Domeny projektu
+
+Strona korzysta z domen:
+- **snopek-koparka.pl** – domena główna (kanoniczna)
+- **snopekkoparka.pl** – przekierowanie na główną
+- **robotyziemne-zawiercie.pl** – przekierowanie na główną (dobra pod SEO lokalne)
+
+### Jak dodać domeny w Vercel
 
 1. W Vercel: projekt → **Settings** → **Domains**
-2. Dodaj np. `snopek.pl`
-3. Vercel wskaże, jakie rekordy DNS ustawić u rejestratora domeny
+2. Kliknij **Add** i wpisz `snopek-koparka.pl`
+3. Ustaw jako **Primary** (pojawi się przycisk po dodaniu)
+4. Dodaj `snopekkoparka.pl` i `robotyziemne-zawiercie.pl` – Vercel zaproponuje przekierowanie na domenę główną
+5. Dla każdej domeny Vercel pokaże dokładne rekordy DNS – dodaj je u rejestratora (OVH, home.pl, domeny.pl itp.)
+6. Odczekaj do 48 h na propagację DNS (zwykle krócej)
 
 ---
 
