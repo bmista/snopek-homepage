@@ -19,7 +19,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-
+  <!-- Google tag (gtag.js) – w <head> żeby Google Ads widział tag; zgoda RODO przez consent mode -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18015624290"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    gtag('config', 'AW-18015624290');
+    gtag('config', 'G-7WZ1JPDE6V', { anonymize_ip: true });
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -233,57 +242,31 @@
     });
   </script>
 
-  <!-- Google Analytics 4 + Google Ads – ładowane tylko po wyrażeniu zgody. -->
+  <!-- Zgoda RODO: po „Akceptuję” odblokowujemy gtag (Consent Mode). Konwersje tylko po zgodzie. -->
   <script>
     (function() {
       var COOKIE_CONSENT_KEY = 'cookie_consent_snopek';
-      var GA_MEASUREMENT_ID = 'G-7WZ1JPDE6V';
-      var ADS_ID = 'AW-18015624290';
-
       var consentBanner = document.getElementById('cookie-consent');
       var saved = localStorage.getItem(COOKIE_CONSENT_KEY);
-
-      function hideBanner() {
-        if (consentBanner) consentBanner.classList.add('hidden');
-      }
-
-      function loadTags() {
-        if (window.gtag) return;
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ADS_ID;
-        document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
-        gtag('config', ADS_ID);
-
+      function hideBanner() { if (consentBanner) consentBanner.classList.add('hidden'); }
+      function grantConsentAndAttachEvents() {
+        if (typeof gtag !== 'function') return;
+        gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
         document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
           link.addEventListener('click', function() {
             gtag('event', 'phone_click', { event_category: 'contact', event_label: 'zadzwon' });
             gtag('event', 'conversion', { send_to: 'AW-18015624290/ad7UCL7gookcEOK4wo5D' });
+            gtag('event', 'conversion', { send_to: 'AW-18015624290/piyECLWT34kcEOK4wo5D', value: 1.0, currency: 'PLN' });
           });
         });
       }
-
-      if (saved === 'accepted') {
-        hideBanner();
-        loadTags();
-      } else if (saved === 'rejected') {
-        hideBanner();
-      }
-
+      if (saved === 'accepted') { hideBanner(); grantConsentAndAttachEvents(); }
+      else if (saved === 'rejected') hideBanner();
       document.getElementById('cookie-accept') && document.getElementById('cookie-accept').addEventListener('click', function() {
-        localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
-        hideBanner();
-        loadTags();
+        localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted'); hideBanner(); grantConsentAndAttachEvents();
       });
-
       document.getElementById('cookie-reject') && document.getElementById('cookie-reject').addEventListener('click', function() {
-        localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected');
-        hideBanner();
+        localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected'); hideBanner();
       });
     })();
   </script>
