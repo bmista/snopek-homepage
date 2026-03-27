@@ -148,6 +148,15 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(201, 162, 39, 0.35);
 }
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+.btn-outline:hover {
+  background: rgba(30, 86, 49, 0.08);
+  transform: translateY(-2px);
+}
 
 /* Sections */
 .section {
@@ -385,6 +394,95 @@ body {
   flex-shrink: 0;
 }
 
+/* Opinie Google (treść uzupełniasz ręcznie z Profilu firmy → Opinie) */
+.reviews-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0 auto 2.5rem;
+  max-width: 560px;
+  text-align: center;
+}
+.reviews-summary-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.reviews-stars {
+  display: flex;
+  gap: 0.15rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+}
+.reviews-stars--summary {
+  font-size: 1.75rem;
+}
+.reviews-summary-numbers {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+.reviews-maps-link { text-align: center; }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.review-card {
+  background: var(--color-white);
+  border: 1px solid rgba(30, 86, 49, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+.review-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.75rem;
+}
+.review-card .review-stars {
+  font-size: 1rem;
+}
+.review-text {
+  margin: 0;
+  flex: 1;
+}
+.review-text p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+.review-meta {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+.review-author { font-weight: 600; color: var(--color-text-muted); }
+.review-photo {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+.reviews-cta-wrap {
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 992px) and (min-width: 769px) {
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Footer */
 .footer {
   background: var(--color-primary-dark);
@@ -428,6 +526,9 @@ body {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
+  }
+  .reviews-grid {
+    grid-template-columns: 1fr;
   }
 }
 
