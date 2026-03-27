@@ -349,6 +349,41 @@ body {
 }
 .contact-address a:hover { color: var(--color-primary); }
 .contact-area { font-size: 0.95rem; color: var(--color-text-muted); }
+.contact-icons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.contact-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--color-primary);
+  background: rgba(30, 86, 49, 0.08);
+  border: 1px solid rgba(30, 86, 49, 0.2);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.contact-icon:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+.contact-icon:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.contact-icon svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
 
 /* Footer */
 .footer {
