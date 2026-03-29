@@ -324,43 +324,134 @@
       </div>
     </section>
 
-    <!-- Opinie Google: uzupełnij w treści strony wartości .reviews-rating-value, .reviews-count-value oraz pola w .review-card (autor, data, cytat; opcjonalnie zdjęcie w .review-photo). Źródło: Profil firmy Google → Opinie. -->
+    <!-- Opinie Google: .reviews-rating-value, .reviews-count-value; karuzela .reviews-carousel-slide (11 cytatów). Źródło: Profil firmy Google → Opinie. -->
     <section class="section" id="opinie">
       <div class="container">
         <h2>Opinie klientów</h2>
-        <p class="section-intro">Klienci oceniają nas w <strong>Google Maps</strong>. Poniżej podsumowanie i wybrane cytaty — pełną listę zobaczysz w wizytówce.</p>
+        <p class="section-intro">Klienci oceniają nas w <strong>Google Maps</strong> — mamy <strong>11 opinii</strong>. Poniżej <strong>wszystkie cytaty</strong> w karuzeli, w <strong>kolejności od najnowszej do najstarszej</strong>. Przewiń strzałkami, klawiszami (← →) lub palcem.</p>
         <div class="reviews-summary">
           <div class="reviews-summary-main">
             <div class="reviews-stars reviews-stars--summary" aria-hidden="true"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-            <p class="reviews-summary-numbers"><span class="reviews-rating-value">5.0</span> / 5 · <span class="reviews-count-value">8</span> opinii</p>
+            <p class="reviews-summary-numbers"><span class="reviews-rating-value">5.0</span> / 5 · <span class="reviews-count-value">11</span> opinii</p>
           </div>
           <a href="https://www.google.com/maps/search/?api=1&amp;query=Us%C5%82ugi+Transportowo+Sprz%C4%99towe+Snopek+Sylwester+Niegowonice" class="btn btn-outline reviews-maps-link" target="_blank" rel="noopener noreferrer">Zobacz wszystkie opinie w Google Maps</a>
         </div>
-        <div class="reviews-grid">
-          <article class="review-card">
-            <div class="review-card-inner">
-              <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Po skończonej zleconej pracy można spokojnie polecić usługi pana Sylwestra – polecam.</p></blockquote>
-              <footer class="review-meta"><span class="review-author">Arkadiusz K</span></footer>
+        <div class="reviews-carousel" id="reviews-carousel">
+          <div class="reviews-carousel-controls">
+            <button type="button" class="reviews-carousel-btn reviews-carousel-btn--prev" aria-controls="reviews-carousel-viewport" aria-label="Poprzednia opinia" disabled>‹</button>
+            <span class="reviews-carousel-status" aria-live="polite"><span class="reviews-carousel-current">1</span> / <span class="reviews-carousel-total">11</span></span>
+            <button type="button" class="reviews-carousel-btn reviews-carousel-btn--next" aria-controls="reviews-carousel-viewport" aria-label="Następna opinia">›</button>
+          </div>
+          <div class="reviews-carousel-viewport" id="reviews-carousel-viewport" tabindex="0" role="region" aria-roledescription="karuzela" aria-label="Opinie klientów z Google Maps">
+            <div class="reviews-carousel-track">
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Polecam</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">Grzegorz Doległo</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/">
+                      <p>Polecam w 100%! Wszystko ogarnięte szybko, sprawnie i bez zbędnego gadania 👌Pan Sylwester solidnie i sprawnie wykonuje swoją pracę, ma dobre podejście i potrafi doradzić jeśli jesteś w kropce.</p>
+                      <p>Największa zaleta —&gt; jest bardzo precyzyjny i dokładny!✨</p>
+                    </blockquote>
+                    <footer class="review-meta"><span class="review-author">Marta Z</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Pełen profesjonalizm! Usługa wykonana sprawnie, terminowo i zgodnie z ustaleniami. Operator bardzo doświadczony, widać, że zna się na rzeczy i dba o detale. Szczerze polecam każdemu, kto szuka rzetelnego wykonawcy robót ziemnych.Polecam Pana Sylwestra!</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">Kamil Koza</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Po skończonej zleconej pracy można spokojnie polecić usługi pana Sylwestra - polecam</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">Arkadiusz K</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Godna polecenia, profesjonalna i uczciwa firma. Pan Sylwester zawsze potrafi doradzić przy wykonywaniu wszelakich prac ziemnych (i nie tylko), widać bogate doświadczenie w operowaniu ciężkim sprzętem, ale przede wszystkim uprzejmość i otwartość. Jedyne, co mogę, to zarekomendować jego usługi.</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">Oktawiusz Skrzek</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Korzystałem z usług tej firmy wielokrotnie i nigdy nie byłem zawiedziony. Zlecenia realizowane terminowo, bez opóźnień czy przekładania ustalonych prac. Polecam Pana Sylwka, ma wieloletnie doświadczenie, potrafi dobrze doradzić, jest bardzo dokładny i super się z nim współpracuje.</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">Tomek Cwiek</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/">
+                      <p>Polecam Sylwestra Snopka i jego usługi koparką w Niegowonicach i okolicach. Prace ziemne wykonuje bardzo sprawnie i dokładnie, wszystko zgodnie z ustaleniami.</p>
+                      <p>Duży plus za terminowość oraz dobry kontakt. Widać doświadczenie w robotach ziemnych. Sprzęt profesjonalny, a teren po wykonaniu prac dobrze uporządkowany.</p>
+                      <p>Jeśli ktoś szuka solidnej firmy wykonującej roboty ziemne lub wykopy w Niegowonicach i okolicy, zdecydowanie polecam.</p>
+                    </blockquote>
+                    <footer class="review-meta"><span class="review-author">Bogusław Miśta</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Bardzo solidny człowiek z doświadczeniem. Podpowie, pomoże, wykopie, wywiezie, przywiezie i na dodatek nie jest narwany. Solidnie i dokładnie. Rzadkość w dzisiejszych czasach.</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">teufel 91</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Wysoka jakość i terminowość świadczonych usług. Potwierdzam wieloletnią i owocną współpracę. Polecam.</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">Sławomir Furman</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Super fachowiec, solidny, rzetelny oraz przystępny cenowo.</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">Paweł Snopek</span></footer>
+                  </div>
+                </article>
+              </div>
+              <div class="reviews-carousel-slide">
+                <article class="review-card">
+                  <div class="review-card-inner">
+                    <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Polecam firmę świadczącą usługi transportowo-sprzętowe. Prace wykonywane są bardzo sprawnie i profesjonalnie. Sprzęt (koparka, transport i inne maszyny) jest zadbany i gotowy do pracy, a operator ma duże doświadczenie. Zlecenie zostało wykonane terminowo, dokładnie i bez żadnych problemów. Bardzo dobry kontakt z firmą, szybka reakcja na potrzeby klienta i rozsądne ceny. Zdecydowanie polecam każdemu, kto potrzebuje rzetelnych usług koparką, prac ziemnych lub transportu sprzętu. Na pewno jeszcze skorzystam z ich usług.</p></blockquote>
+                    <footer class="review-meta"><span class="review-author">Edyta Kolankowska</span></footer>
+                  </div>
+                </article>
+              </div>
             </div>
-          </article>
-          <article class="review-card">
-            <div class="review-card-inner">
-              <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <blockquote class="review-text" cite="https://www.google.com/maps/"><p>Pełen profesjonalizm! Usługa wykonana sprawnie, terminowo i zgodnie z ustaleniami. Operator bardzo doświadczony, widać, że zna się na rzeczy i dba o detale. Szczerze polecam każdemu, kto szuka rzetelnego wykonawcy robót ziemnych. Polecam Pana Sylwestra!</p></blockquote>
-              <footer class="review-meta"><span class="review-author">Kamil Koza</span></footer>
-            </div>
-          </article>
-          <article class="review-card">
-            <div class="review-card-inner">
-              <div class="review-stars" aria-label="Ocena 5 na 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <blockquote class="review-text" cite="https://www.google.com/maps/">
-                <p>Polecam w 100%! Wszystko ogarnięte szybko, sprawnie i bez zbędnego gadania 👌 Pan Sylwester solidnie i sprawnie wykonuje swoją pracę, ma dobre podejście i potrafi doradzić, jeśli jesteś w kropce.</p>
-                <p>Największa zaleta → jest bardzo precyzyjny i dokładny! ✨</p>
-              </blockquote>
-              <footer class="review-meta"><span class="review-author">Marta Z</span></footer>
-            </div>
-          </article>
+          </div>
         </div>
         <p class="reviews-cta-wrap">
           <a href="https://g.page/r/CaXp-15LtaL4EAE/review" class="btn btn-primary reviews-cta" target="_blank" rel="noopener noreferrer">Zostaw opinię w Google</a>
@@ -420,6 +511,78 @@
       header.classList.toggle('scrolled', currentScroll > 50);
       lastScroll = currentScroll;
     });
+  </script>
+
+  <script>
+    (function () {
+      var root = document.getElementById('reviews-carousel');
+      if (!root) return;
+      var viewport = document.getElementById('reviews-carousel-viewport');
+      var track = root.querySelector('.reviews-carousel-track');
+      var slides = root.querySelectorAll('.reviews-carousel-slide');
+      var prevBtn = root.querySelector('.reviews-carousel-btn--prev');
+      var nextBtn = root.querySelector('.reviews-carousel-btn--next');
+      var currentEl = root.querySelector('.reviews-carousel-current');
+      var totalEl = root.querySelector('.reviews-carousel-total');
+      var n = slides.length;
+      var i = 0;
+
+      if (totalEl) totalEl.textContent = String(n);
+
+      function updateCarousel() {
+        if (track) track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        if (currentEl) currentEl.textContent = String(i + 1);
+        if (prevBtn) prevBtn.disabled = i === 0;
+        if (nextBtn) nextBtn.disabled = i >= n - 1;
+      }
+
+      prevBtn && prevBtn.addEventListener('click', function () {
+        if (i > 0) {
+          i--;
+          updateCarousel();
+        }
+      });
+      nextBtn && nextBtn.addEventListener('click', function () {
+        if (i < n - 1) {
+          i++;
+          updateCarousel();
+        }
+      });
+
+      viewport && viewport.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          if (i > 0) {
+            i--;
+            updateCarousel();
+          }
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          if (i < n - 1) {
+            i++;
+            updateCarousel();
+          }
+        }
+      });
+
+      var touchStartX = 0;
+      viewport && viewport.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      viewport && viewport.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(dx) < 50) return;
+        if (dx > 0 && i > 0) {
+          i--;
+          updateCarousel();
+        } else if (dx < 0 && i < n - 1) {
+          i++;
+          updateCarousel();
+        }
+      }, { passive: true });
+
+      updateCarousel();
+    })();
   </script>
 
   <!-- Zgoda RODO: po „Akceptuję” odblokowujemy gtag (Consent Mode). Konwersje tylko po zgodzie. -->
