@@ -393,6 +393,23 @@ body {
   height: 22px;
   flex-shrink: 0;
 }
+.contact-vcard-wrap {
+  margin: 1.15rem 0 0;
+  padding: 0;
+}
+.contact-vcard-link {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(30, 86, 49, 0.35);
+  transition: color 0.2s, border-color 0.2s;
+}
+.contact-vcard-link:hover {
+  color: var(--color-text);
+  border-bottom-color: var(--color-primary);
+}
 
 /* Opinie Google (treść uzupełniasz ręcznie z Profilu firmy → Opinie) */
 .reviews-summary {

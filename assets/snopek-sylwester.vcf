@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+FN;CHARSET=UTF-8:Sylwester Snopek – Usługi Transportowo-Sprzętowe
+N:Snopek;Sylwester;;;
+ORG;CHARSET=UTF-8:Usługi Transportowo-Sprzętowe Snopek Sylwester
+TEL;TYPE=CELL:+48507168835
+EMAIL:sylwek@snopek-koparka.pl
+ADR;TYPE=WORK;CHARSET=UTF-8:;;ul. Kościuszki 24;Niegowonice;;42-454;Polska
+URL:https://snopek-koparka.pl/
+NOTE;CHARSET=UTF-8:Koparko-ładowarka, roboty ziemne. Niegowonice i okolica (ok. 10 km).
+END:VCARD
