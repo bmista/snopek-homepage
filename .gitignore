@@ -1,6 +1,10 @@
 .venv/
+.env
 node_modules/
 __pycache__/
 *.pyc
 .DS_Store
 .vercel/
+
+# Blog: HTML generowane przez npm run build (Contentful) — źródłem treści jest CMS + build na Vercelu
+/blog/

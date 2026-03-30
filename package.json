@@ -1,0 +1,14 @@
+{
+  "name": "snopek-homepage",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-blog.mjs",
+    "serve": "npx --yes serve . -l 3000"
+  },
+  "dependencies": {
+    "@contentful/rich-text-html-renderer": "^16.6.10",
+    "@vercel/analytics": "^2.0.1",
+    "contentful": "^10.15.1",
+    "dotenv": "^16.4.5"
+  }
+}
