@@ -62,9 +62,55 @@ function richToHtml(document) {
   return documentToHtmlString(document, options);
 }
 
-function layoutHtml({ title, description, canonicalUrl, ogImage, bodyClass, mainHtml, jsonLd, blogNavCurrent }) {
+/** Skrót do kafelka na liście: najpierw seoDescription, potem początek treści (bez HTML). */
+function excerptForCard(seoDescription, richBody, maxLen = 180) {
+  const fromSeo = (seoDescription || '').trim();
+  if (fromSeo.length >= 40) {
+    return fromSeo.length > maxLen ? `${fromSeo.slice(0, maxLen).trim()}…` : fromSeo;
+  }
+  if (!richBody) return '';
+  const html = documentToHtmlString(richBody, {
+    renderNode: { 'embedded-asset-block': () => '' },
+  });
+  let text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (text.length <= maxLen) return text;
+  const cut = text.slice(0, maxLen);
+  const lastSpace = cut.lastIndexOf(' ');
+  return `${lastSpace > 50 ? cut.slice(0, lastSpace) : cut}…`;
+}
+
+const PLACEHOLDER_IMG = '/assets/koparko-ladowarka-niegowonice.png';
+
+function contactSectionHtml() {
+  return `<section class="section section--blog-contact" id="kontakt">
+      <div class="container">
+        <h2>Kontakt</h2>
+        <p class="section-intro">Potrzebujesz koparko-ładowarki, wykopów lub transportu materiałów w Niegowonicach lub w promieniu ok. 10 km? Zadzwoń!</p>
+        <div class="contact-box">
+          <a href="tel:+48507168835" class="contact-phone">📞 507 168 835</a>
+          <p>Usługi transportowo-sprzętowe<br><strong>Snopek Sylwester</strong></p>
+          <p class="contact-address"><a href="https://maps.google.com/?q=ul.+Ko%C5%9Bciuszki+24,+42-454+Niegowonice" target="_blank" rel="noopener">ul. Kościuszki 24, 42-454 Niegowonice</a></p>
+          <p class="contact-area">Niegowonice, Grabowa, Łazy, Ogrodzieniec, i okolica (standardowy zasięg ok. 10 km)</p>
+          <div class="contact-icons">
+            <a href="mailto:sylwek@snopek-koparka.pl" class="contact-icon" aria-label="E-mail: sylwek@snopek-koparka.pl">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61576650450712" class="contact-icon" target="_blank" rel="noopener noreferrer" aria-label="Facebook – profil firmy">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/snopek.koparka/" class="contact-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram – profil firmy">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>`;
+}
+
+function layoutHtml({ title, description, canonicalUrl, ogImage, bodyClass, mainHtml, jsonLd, blogNavCurrent, ogType }) {
   const desc = escapeHtml(description || '');
   const og = ogImage || `${SITE_URL}/assets/koparko-ladowarka-niegowonice.png`;
+  const ogTypeVal = ogType || 'article';
   return `<!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -80,7 +126,7 @@ function layoutHtml({ title, description, canonicalUrl, ogImage, bodyClass, main
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${desc}">
   <meta property="og:image" content="${escapeHtml(og)}">
-  <meta property="og:type" content="article">
+  <meta property="og:type" content="${escapeHtml(ogTypeVal)}">
   <meta property="og:locale" content="pl_PL">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -217,6 +263,7 @@ async function main() {
     }
     const bodyHtml = richToHtml(fields[F.body]);
     const seoDesc = fields[F.seoDescription] || '';
+    const excerpt = excerptForCard(seoDesc, fields[F.body]);
     const img = fields[F.featuredImage];
     const imgUrl = img ? assetUrl(img) : '';
     const date = fields[F.publishDate];
@@ -228,6 +275,7 @@ async function main() {
       slug,
       bodyHtml,
       seoDescription: seoDesc,
+      excerpt,
       featuredImageUrl: imgUrl,
       dateIso,
       dateLabel: date ? new Date(date).toLocaleDateString('pl-PL', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
@@ -258,7 +306,13 @@ async function main() {
         ${hero}
         <div class="blog-prose">${p.bodyHtml}</div>
       </div>
-    </article>`;
+    </article>
+    <div class="container container--narrow">
+      <p class="blog-back-wrap">
+        <a href="/blog/" class="btn btn-outline blog-back-btn">← Wróć do listy wpisów</a>
+      </p>
+    </div>
+    ${contactSectionHtml()}`;
 
     const jsonLd = JSON.stringify({
       '@context': 'https://schema.org',
@@ -285,34 +339,44 @@ async function main() {
       mainHtml: article,
       jsonLd,
       blogNavCurrent: 'none',
+      ogType: 'article',
     });
 
     fs.writeFileSync(path.join(dir, 'index.html'), html, 'utf8');
     console.log('Zapisano:', `/blog/${p.slug}/`);
   }
 
-  const listItems = posts
-    .map(
-      (p) => `
-        <li class="blog-list-item">
-          <a href="/blog/${escapeHtml(p.slug)}/">
-            <span class="blog-list-title">${escapeHtml(p.title)}</span>
-            ${p.dateLabel ? `<span class="blog-list-date">${escapeHtml(p.dateLabel)}</span>` : ''}
+  const gridCards = posts
+    .map((p) => {
+      const imgSrc = p.featuredImageUrl || PLACEHOLDER_IMG;
+      const alt = escapeHtml(p.title);
+      return `
+        <article class="blog-card">
+          <a href="/blog/${escapeHtml(p.slug)}/" class="blog-card-link">
+            <div class="blog-card-image">
+              <img src="${escapeHtml(imgSrc.startsWith('//') ? `https:${imgSrc}` : imgSrc)}" alt="${alt}" width="800" height="450" loading="lazy" decoding="async" />
+            </div>
+            <div class="blog-card-body">
+              <h2 class="blog-card-title">${escapeHtml(p.title)}</h2>
+              ${p.dateLabel ? `<p class="blog-card-date">${escapeHtml(p.dateLabel)}</p>` : ''}
+              ${p.excerpt ? `<p class="blog-card-excerpt">${escapeHtml(p.excerpt)}</p>` : ''}
+              <span class="blog-card-cta">Czytaj <span aria-hidden="true">→</span></span>
+            </div>
           </a>
-        </li>`
-    )
+        </article>`;
+    })
     .join('');
 
   const indexMain = `
     <section class="section blog-index">
-      <div class="container container--narrow">
+      <div class="container">
         <header class="blog-index-header">
           <h1>Blog</h1>
           <p class="section-intro">Aktualności i wpisy z naszej pracy przy robotach ziemnych i usługach koparką w Niegowonicach i okolicy.</p>
         </header>
-        <ul class="blog-list">
-          ${listItems || '<li class="blog-list-empty">Brak opublikowanych wpisów.</li>'}
-        </ul>
+        <div class="blog-grid">
+          ${gridCards || '<p class="blog-grid-empty">Brak opublikowanych wpisów.</p>'}
+        </div>
       </div>
     </section>`;
 
@@ -322,23 +386,38 @@ async function main() {
     canonicalUrl: `${SITE_URL}/blog/`,
     mainHtml: indexMain,
     blogNavCurrent: 'index',
+    ogType: 'website',
   });
 
   fs.writeFileSync(path.join(blogDir, 'index.html'), indexHtml, 'utf8');
   console.log('Zapisano: /blog/index.html');
 
+  /** YYYY-MM-DD z ISO treści (Contentful / sys) */
+  function lastmodDay(iso) {
+    if (!iso) return new Date().toISOString().slice(0, 10);
+    const d = String(iso).slice(0, 10);
+    return /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : new Date().toISOString().slice(0, 10);
+  }
+
   const today = new Date().toISOString().slice(0, 10);
+  /** Data ostatniej zmiany listy bloga: najnowszy wpis albo dziś (przebudowa listy). */
+  const blogListLastMod =
+    posts.length > 0
+      ? posts.map((p) => lastmodDay(p.dateIso)).sort().reverse()[0]
+      : today;
+
+  /** Przy każdym `npm run build` (np. na Vercelu po deployu / webhooku) ten blok jest generowany od zera z aktualnej listy wpisów z Contentful. */
   const blogUrlsXml = [
     `  <url>
     <loc>${SITE_URL}/blog/</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${blogListLastMod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>`,
     ...posts.map(
       (p) => `  <url>
     <loc>${SITE_URL}/blog/${p.slug}/</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${lastmodDay(p.dateIso)}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>`
@@ -353,7 +432,9 @@ async function main() {
   } else {
     sitemap = sitemap.replace(/<!-- BLOG_URLS -->[\s\S]*?<!-- \/BLOG_URLS -->/, blogBlock);
     fs.writeFileSync(sitemapPath, sitemap, 'utf8');
-    console.log('Zaktualizowano sitemap.xml (wpisy bloga).');
+    console.log(
+      `Zaktualizowano sitemap.xml: /blog/ + ${posts.length} wpis(ów) (URL-e z bieżącego buildu).`
+    );
   }
 }
 

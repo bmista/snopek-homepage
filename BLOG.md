@@ -6,7 +6,7 @@
 2. Przy deployu na **Vercel** uruchamiane jest `npm run build`, które pobiera opublikowane wpisy i zapisuje:
    - `blog/index.html` — lista wpisów,
    - `blog/<slug>/index.html` — każdy wpis.
-3. `sitemap.xml` jest uzupełniany o URL-e bloga (między znacznikami `BLOG_URLS`).
+3. `sitemap.xml` — przy **każdym** `npm run build` skrypt **od nowa** wstawia między znacznikami `<!-- BLOG_URLS -->` … `<!-- /BLOG_URLS -->` aktualną listę: `/blog/` oraz każdy opublikowany wpis (z datą `lastmod` z treści). Po dodaniu lub usunięciu wpisu w Contentful kolejny deploy (albo webhook) przebuduje stronę **i** zaktualizuje sitemap na serwerze — nie trzeba ręcznie edytować `sitemap.xml` w repozytorium (plik w Git może być starszy; **produkcyjny** sitemap powstaje przy buildzie na Vercelu).
 
 Folder `blog/` jest w `.gitignore` — HTML powstaje przy buildzie na Vercelu (albo lokalnie po `npm run build`), a nie jest commitowany do repozytorium.
 
