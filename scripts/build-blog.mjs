@@ -62,9 +62,25 @@ function richToHtml(document) {
   return documentToHtmlString(document, options);
 }
 
+/**
+ * Pole seoDescription w Contentful może być krótkim tekstem (string) albo rich text (obiekt dokumentu).
+ * Zawsze zwracamy zwykły string do meta / excerpt.
+ */
+function seoFieldToPlainText(value) {
+  if (value == null || value === '') return '';
+  if (typeof value === 'string') return value.trim();
+  if (typeof value === 'object' && value.nodeType === 'document') {
+    const html = documentToHtmlString(value, {
+      renderNode: { 'embedded-asset-block': () => '' },
+    });
+    return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  return String(value).trim();
+}
+
 /** Skrót do kafelka na liście: najpierw seoDescription, potem początek treści (bez HTML). */
 function excerptForCard(seoDescription, richBody, maxLen = 180) {
-  const fromSeo = (seoDescription || '').trim();
+  const fromSeo = seoFieldToPlainText(seoDescription);
   if (fromSeo.length >= 40) {
     return fromSeo.length > maxLen ? `${fromSeo.slice(0, maxLen).trim()}…` : fromSeo;
   }
@@ -262,7 +278,7 @@ async function main() {
       continue;
     }
     const bodyHtml = richToHtml(fields[F.body]);
-    const seoDesc = fields[F.seoDescription] || '';
+    const seoDesc = seoFieldToPlainText(fields[F.seoDescription]);
     const excerpt = excerptForCard(seoDesc, fields[F.body]);
     const img = fields[F.featuredImage];
     const imgUrl = img ? assetUrl(img) : '';
