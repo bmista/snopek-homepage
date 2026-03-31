@@ -3,6 +3,16 @@
   "installCommand": "npm install",
   "buildCommand": "npm run build",
   "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/go/:target",
+      "destination": "/go/index.html"
+    },
+    {
+      "source": "/go/:target/",
+      "destination": "/go/index.html"
+    }
+  ],
   "redirects": [
     {
       "source": "/zostaw-opinie",

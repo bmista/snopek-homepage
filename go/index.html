@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Przekierowanie...</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7WZ1JPDE6V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7WZ1JPDE6V', { anonymize_ip: true });
+  </script>
+</head>
+<body>
+  <p>Przekierowuję...</p>
+  <script>
+    (function () {
+      var routeMap = {
+        "zostaw-opinie": "/zostaw-opinie",
+        "google": "/google",
+        "facebook": "/facebook",
+        "instagram": "/instagram",
+        "linktree": "/linktree",
+        "qr": "/qr",
+        "telefon": "/telefon",
+        "wizytowka": "/wizytowka"
+      };
+
+      var parts = window.location.pathname.split("/").filter(Boolean);
+      var key = parts.length >= 2 ? parts[1] : "";
+      var isKnownRoute = Object.prototype.hasOwnProperty.call(routeMap, key);
+      var destination = isKnownRoute ? routeMap[key] : "/";
+      var redirected = false;
+
+      function go() {
+        if (redirected) return;
+        redirected = true;
+        window.location.replace(destination);
+      }
+
+      if (typeof window.gtag === "function") {
+        if (!isKnownRoute) {
+          window.gtag("event", "go_redirect_unknown", {
+            event_category: "navigation",
+            event_label: key || "missing",
+            source_path: window.location.pathname,
+            fallback_path: "/",
+            transport_type: "beacon"
+          });
+        }
+
+        window.gtag("event", "go_redirect_click", {
+          event_category: "navigation",
+          event_label: key || "unknown",
+          destination_path: destination,
+          source_path: window.location.pathname,
+          is_known_route: isKnownRoute ? "true" : "false",
+          transport_type: "beacon",
+          event_callback: go
+        });
+      }
+
+      window.setTimeout(go, 250);
+    })();
+  </script>
+</body>
+</html>
