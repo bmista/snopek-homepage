@@ -24,7 +24,7 @@
         "instagram": "/instagram",
         "linktree": "/linktree",
         "qr": "/qr",
-        "telefon": "/telefon",
+        "telefon": "tel:+48507168835",
         "wizytowka": "/wizytowka"
       };
 
@@ -37,6 +37,10 @@
       function go() {
         if (redirected) return;
         redirected = true;
+        if (destination.indexOf("tel:") === 0) {
+          window.location.href = destination;
+          return;
+        }
         window.location.replace(destination);
       }
 
