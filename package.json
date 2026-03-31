@@ -2,7 +2,9 @@
   "name": "snopek-homepage",
   "private": true,
   "scripts": {
-    "build": "node scripts/build-blog.mjs",
+    "sync:reviews": "node scripts/sync-google-reviews.mjs",
+    "render:reviews": "node scripts/render-google-reviews.mjs",
+    "build": "npm run render:reviews && node scripts/build-blog.mjs",
     "serve": "npx --yes serve . -l 3000"
   },
   "dependencies": {
