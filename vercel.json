@@ -3,6 +3,12 @@
   "installCommand": "npm install",
   "buildCommand": "npm run build",
   "outputDirectory": ".",
+  "crons": [
+    {
+      "path": "/api/cron-redeploy",
+      "schedule": "0 4 * * *"
+    }
+  ],
   "rewrites": [
     {
       "source": "/go/:target",

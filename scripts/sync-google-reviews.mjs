@@ -101,6 +101,32 @@ async function fetchPlaceSummary() {
   };
 }
 
+async function fetchPlaceSummaryBySearch() {
+  if (!GOOGLE_MAPS_API_KEY) return null;
+  const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': GOOGLE_MAPS_API_KEY,
+      'X-Goog-FieldMask': 'places.id,places.displayName,places.rating,places.userRatingCount,places.googleMapsUri',
+    },
+    body: JSON.stringify({
+      textQuery: 'Usługi transportowo-sprzętowe Snopek Sylwester Niegowonice',
+      pageSize: 1,
+    }),
+  });
+  if (!res.ok) return null;
+  const json = await res.json();
+  const p = (json.places || [])[0];
+  if (!p) return null;
+  return {
+    averageRating: Number(p.rating) || null,
+    totalReviewCount: Number(p.userRatingCount) || null,
+    mapsUrl: p.googleMapsUri || null,
+    placeId: p.id || null,
+  };
+}
+
 function averageFromReviews(reviews) {
   if (!reviews.length) return null;
   const sum = reviews.reduce((acc, r) => acc + (Number(r.rating) || 0), 0);
@@ -134,17 +160,46 @@ function writePlaceholderPayload() {
 }
 
 async function main() {
-  const token = await getAccessToken();
-  const allReviews = await fetchGoogleBusinessReviews(token);
-  const latestReviews = allReviews.slice(0, 10);
-  const placeSummary = await fetchPlaceSummary();
+  let allReviews = [];
+  let latestReviews = [];
+  let source = 'google-business-profile-api';
+  let gbpError = null;
+
+  try {
+    const token = await getAccessToken();
+    allReviews = await fetchGoogleBusinessReviews(token);
+    latestReviews = allReviews.slice(0, 10);
+  } catch (err) {
+    gbpError = err;
+  }
+
+  const existing = readExistingPayload();
+  const placeSummary = (await fetchPlaceSummary()) || (await fetchPlaceSummaryBySearch());
+
+  if (latestReviews.length === 0 && existing?.reviews?.length) {
+    latestReviews = existing.reviews.slice(0, 10);
+    allReviews = existing.reviews;
+    source = gbpError ? 'places-summary + cached-reviews' : source;
+  }
+
+  if (latestReviews.length === 0 && gbpError && !placeSummary) {
+    throw gbpError;
+  }
+
+  if (gbpError && placeSummary) {
+    source = 'places-summary + cached-reviews';
+    console.warn(`GBP niedostępne, odświeżam tylko podsumowanie z Places: ${gbpError.message || gbpError}`);
+    if (placeSummary.placeId && placeSummary.placeId !== GOOGLE_PLACE_ID) {
+      console.warn(`Wskazówka: GOOGLE_PLACE_ID wygląda na nieaktualne. Aktualny Place ID: ${placeSummary.placeId}`);
+    }
+  }
 
   const payload = {
-    source: 'google-business-profile-api',
+    source,
     updatedAt: new Date().toISOString(),
     summary: {
       averageRating: placeSummary?.averageRating ?? averageFromReviews(allReviews) ?? 5.0,
-      totalReviewCount: placeSummary?.totalReviewCount ?? allReviews.length,
+      totalReviewCount: placeSummary?.totalReviewCount ?? existing?.summary?.totalReviewCount ?? allReviews.length,
       mapsUrl: placeSummary?.mapsUrl ?? FALLBACK_MAPS_URL,
       leaveReviewUrl: FALLBACK_REVIEW_URL,
     },
