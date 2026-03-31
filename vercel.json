@@ -3,6 +3,48 @@
   "installCommand": "npm install",
   "buildCommand": "npm run build",
   "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/zostaw-opinie",
+      "destination": "https://g.page/r/CaXp-15LtaL4EAE/review",
+      "permanent": false
+    },
+    {
+      "source": "/google",
+      "destination": "https://www.google.com/maps/search/?api=1&query=Us%C5%82ugi+Transportowo+Sprz%C4%99towe+Snopek+Sylwester+Niegowonice",
+      "permanent": false
+    },
+    {
+      "source": "/facebook",
+      "destination": "https://www.facebook.com/profile.php?id=61576650450712",
+      "permanent": false
+    },
+    {
+      "source": "/instagram",
+      "destination": "https://www.instagram.com/snopek.koparka/",
+      "permanent": false
+    },
+    {
+      "source": "/linktree",
+      "destination": "https://linktr.ee/snopek.koparka",
+      "permanent": false
+    },
+    {
+      "source": "/qr",
+      "destination": "https://linktr.ee/snopek.koparka",
+      "permanent": false
+    },
+    {
+      "source": "/telefon",
+      "destination": "tel:+48507168835",
+      "permanent": false
+    },
+    {
+      "source": "/wizytowka",
+      "destination": "/assets/snopek-sylwester.vcf",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)\\.vcf",
